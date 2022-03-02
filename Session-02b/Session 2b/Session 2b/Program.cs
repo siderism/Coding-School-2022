@@ -46,11 +46,11 @@ Console.WriteLine(seconds + " seconds are equal with " + minutes + " minutes, eq
 
 //6
 TimeSpan t = TimeSpan.FromSeconds(seconds);
-string sminutes = t.TotalMinutes.ToString();
-string shours = t.TotalHours.ToString();
-string sdays = t.TotalDays.ToString();
-string syears = Convert.ToString(t.TotalDays / 365);
-Console.WriteLine(seconds + " seconds are equal with " + minutes + " minutes, equal with " + hours + " hours, equal with " + days + " days and equal with " + years + " years.");
+string sMinutes = t.TotalMinutes.ToString();
+string sHours = t.TotalHours.ToString();
+string sDays = t.TotalDays.ToString();
+string sYears = Convert.ToString(t.TotalDays / 365);
+Console.WriteLine(seconds + " seconds are equal with " + sMinutes + " minutes, equal with " + sHours + " hours, equal with " + sDays + " days and equal with " + sYears + " years.");
 
 //7
 float celcius = 36.6f;
