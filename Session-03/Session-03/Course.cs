@@ -12,7 +12,7 @@ namespace Session_03
         public string Code { get; set; }
         public string Subject { get; set; }
 
-        public Course(string code = "", string subject = "")
+        public Course(string code = null, string subject = null)
         {
             ID = Guid.NewGuid();
             Code = code;

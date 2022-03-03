@@ -12,7 +12,7 @@ namespace Session_03
         public string Name { get; set; }
         public int YearsInService { get; set; }
 
-        public Institute(string name)
+        public Institute(string name = null)
         {
             ID = Guid.NewGuid();
             Name = name;

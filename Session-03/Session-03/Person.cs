@@ -12,7 +12,7 @@ namespace Session_03
         public string Name { get; set; }
         public int Age { get; set; }
 
-        public Person(string name = "", int age = 0)
+        public Person(string name = null, int age = 0)
         {
             ID = Guid.NewGuid();
             Name = name;
