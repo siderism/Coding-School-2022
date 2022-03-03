@@ -12,9 +12,11 @@ namespace Session_03
         public string Name { get; set; }
         public int Age { get; set; }
 
-        public Person()
+        public Person(string name = "", int age = 0)
         {
             ID = Guid.NewGuid();
+            Name = name;
+            Age = age;
         }
 
         public string GetName()

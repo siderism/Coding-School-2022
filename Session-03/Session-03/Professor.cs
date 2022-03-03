@@ -11,7 +11,7 @@ namespace Session_03
         public string Rank { get; set; }
         public Course[] Courses { get; set; }
 
-        public Professor()
+        public Professor(string name = "", int age = 0) : base(name, age)
         {
 
         }

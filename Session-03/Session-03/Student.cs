@@ -11,7 +11,7 @@ namespace Session_03
         public int RegistrationNumber { get; set; }
         public Course[] Courses { get; set; }
 
-        public Student()
+        public Student(string name = "", int age = 0) : base(name, age)
         {
 
         }

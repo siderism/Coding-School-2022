@@ -13,7 +13,7 @@ namespace Session_03
         public Grade[] Grades { get; set; }
         public Schedule[] ScheduledCourse { get; set; }
 
-        public University()
+        public University(string name) : base(name)
         {
             Students = new Student[30];
             Courses = new Course[20];
