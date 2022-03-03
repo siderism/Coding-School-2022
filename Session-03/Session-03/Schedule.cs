@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Session_03
 {
-    internal class Schedule
+    public class Schedule
     {
         public Guid ID { get; }
         public Guid CourseId { get; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Session_03
 {
-    internal class Person
+    public class Person
     {
         public Guid ID { get; }
         public string Name { get; set; }
