@@ -14,7 +14,7 @@ namespace Session_03
 
         public Person()
         {
-
+            ID = Guid.NewGuid();
         }
 
         public string GetName()
