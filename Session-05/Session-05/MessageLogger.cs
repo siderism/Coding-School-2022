@@ -8,16 +8,16 @@ namespace Session_05
 {
     public class MessageLogger
     {
-        public Message[] Messsages { get; set; }
+        public Message[] Messages { get; set; }
 
         public MessageLogger()
         {
-            Messsages = new Message[200];
+            Messages = new Message[200];
         }
 
         public void ReadAll()
         {
-            foreach (var message in Messsages)
+            foreach (var message in Messages)
             {
                 Console.WriteLine(message.MessageString);
             }
@@ -25,19 +25,16 @@ namespace Session_05
 
         public void Clear()
         {
-            for (int i = 0; i < Messsages.Length; i++)
-            {
-                Messsages[i] = new Message();
-            }
+            Array.Clear(Messages, 0, Messages.Length);
         }
 
         public void Write(Message message)
         {
-            for (int i = 0; i < Messsages.Length; i++)
+            for (int i = 0; i < Messages.Length; i++)
             {
-                if (Messsages[i].MessageString == null)
+                if (Messages[i].MessageString == null)
                 {
-                    Messsages[i] = new Message
+                    Messages[i] = new Message
                     {
                         MessageString = message.MessageString,
                         ID = message.ID,
