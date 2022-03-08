@@ -66,6 +66,7 @@ namespace Session_05
                             MessageString = "The given input wasn't string type."
                         };
                         Logger.Write(message.MessageString);
+                        actionResponse.Output = string.Empty;
                     }
                     break;
                 case ActionEnum.Reverse:
@@ -85,6 +86,7 @@ namespace Session_05
                             MessageString = "The given input wasn't string type."
                         };
                         Logger.Write(message.MessageString);
+                        actionResponse.Output = String.Empty;
                     }
                     break;
                 default:
@@ -93,6 +95,7 @@ namespace Session_05
                         MessageString = "The given Action was not valid."
                     };
                     Logger.Write(errorMessage.MessageString);
+                    actionResponse.Output = String.Empty;
                     break;
             }
             return actionResponse;
