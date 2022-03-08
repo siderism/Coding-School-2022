@@ -12,10 +12,15 @@ namespace Session_05
         public DateTime TimeStamp { get; set; }
         public string MessageString { get; set; }
 
-        public Message()
+        public Message() : this(String.Empty)
+        {
+
+        }
+        public Message(string messageString)
         {
             ID = Guid.NewGuid();
             TimeStamp = DateTime.Now;
+            MessageString = messageString;
         }
     }
 }

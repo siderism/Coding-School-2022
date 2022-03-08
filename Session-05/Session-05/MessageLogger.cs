@@ -19,7 +19,10 @@ namespace Session_05
         {
             foreach (var message in Messages)
             {
-                Console.WriteLine(message.MessageString);
+                if (message != null)
+                {
+                    Console.WriteLine(message.MessageString);
+                }
             }
         }
 
@@ -28,7 +31,7 @@ namespace Session_05
             Array.Clear(Messages, 0, Messages.Length);
         }
 
-        public void Write(Message message)
+        public void Write(string message)
         {
             for (int i = 0; i < Messages.Length; i++)
             {
@@ -36,9 +39,7 @@ namespace Session_05
                 {
                     Messages[i] = new Message
                     {
-                        MessageString = message.MessageString,
-                        ID = message.ID,
-                        TimeStamp = message.TimeStamp
+                        MessageString = message
                     };
                     break;
                 }

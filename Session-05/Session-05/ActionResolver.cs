@@ -31,7 +31,7 @@ namespace Session_05
                         {
                             MessageString = $"Converted decimal input {decimalInput} to binary {inputInBinary}."
                         };
-                        Logger.Write(message);
+                        Logger.Write(message.MessageString);
                     }
                     catch (Exception e)
                     {
@@ -39,7 +39,7 @@ namespace Session_05
                         {
                             MessageString = e.Message
                         };
-                        Logger.Write(message);
+                        Logger.Write(message.MessageString);
                         actionResponse.Output = String.Empty;
                     }
                     break;
@@ -57,7 +57,7 @@ namespace Session_05
                             actionResponse.Output = actionRequest.Input.ToUpper();
                             message.MessageString = "Turned from lower case to upper case the given input.";
                         }
-                        Logger.Write(message);
+                        Logger.Write(message.MessageString);
                     }
                     else
                     {
@@ -65,7 +65,7 @@ namespace Session_05
                         {
                             MessageString = "The given input wasn't string type."
                         };
-                        Logger.Write(message);
+                        Logger.Write(message.MessageString);
                     }
                     break;
                 case ActionEnum.Reverse:
@@ -83,7 +83,7 @@ namespace Session_05
                         {
                             MessageString = "The given input wasn't string type."
                         };
-                        Logger.Write(message);
+                        Logger.Write(message.MessageString);
                     }
                     break;
                 default:
@@ -91,7 +91,7 @@ namespace Session_05
                     {
                         MessageString = "The given Action was not valid."
                     };
-                    Logger.Write(errorMessage);
+                    Logger.Write(errorMessage.MessageString);
                     break;
             }
             return actionResponse;
