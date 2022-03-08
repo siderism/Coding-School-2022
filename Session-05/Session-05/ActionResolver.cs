@@ -7,7 +7,7 @@ using Session_05.enums;
 
 namespace Session_05
 {
-    public class ActionResolver
+    public class ActionResolver : Executable
     {
         public MessageLogger Logger { get; set; }
 
@@ -16,7 +16,7 @@ namespace Session_05
             Logger = new MessageLogger();
         }
 
-        public ActionResponse Execute(ActionRequest actionRequest)
+        public override ActionResponse Execute(ActionRequest actionRequest)
         {
             var actionResponse = new ActionResponse(actionRequest.RequestID);
             switch (actionRequest.Action)
@@ -94,5 +94,6 @@ namespace Session_05
             else
                 return str;
         }
+
     }
 }
