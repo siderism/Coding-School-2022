@@ -50,12 +50,12 @@ namespace Session_05
                         if (WordsInInput(actionRequest.Input) > 1)
                         {
                             actionResponse.Output = FindLongestWord(actionRequest.Input).ToUpper();
-                            message.MessageString = "Turned from lower case to upper case the first letter of the longest word of given input.";
+                            message.MessageString = "Turned from lower case to upper case the longest word of given input.";
                         }
                         else
                         {
                             actionResponse.Output = actionRequest.Input.ToUpper();
-                            message.MessageString = "Turned from lower case to upper case the first letter of given input.";
+                            message.MessageString = "Turned from lower case to upper case the given input.";
                         }
                         Logger.Write(message);
                     }
