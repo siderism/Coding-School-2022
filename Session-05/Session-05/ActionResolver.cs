@@ -44,7 +44,7 @@ namespace Session_05
                     }
                     break;
                 case ActionEnum.Uppercase:
-                    if (actionRequest.Input.GetType() == typeof(string))
+                    if (actionRequest.Input is string)
                     {
                         var message = new Message();
                         if (WordsInInput(actionRequest.Input) > 1)
@@ -69,13 +69,14 @@ namespace Session_05
                     }
                     break;
                 case ActionEnum.Reverse:
-                    if (actionRequest.Input.GetType() == typeof(string))
+                    if (actionRequest.Input is string)
                     {
                         var message = new Message()
                         {
                             MessageString = "Reversed the given string."
                         };
                         actionResponse.Output = GetReversed(actionRequest.Input);
+                        Logger.Write(message.MessageString);
                     }
                     else
                     {
@@ -116,12 +117,11 @@ namespace Session_05
             return longestWord;
         }
 
-        private string GetReversed(string str)
+        private string GetReversed(string s)
         {
-            if (str.Length > 0)
-                return str[str.Length - 1] + GetReversed(str.Substring(0, str.Length - 1));
-            else
-                return str;
+            char[] charArray = s.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
         }
 
     }

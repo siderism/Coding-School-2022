@@ -17,6 +17,7 @@ namespace Session_05
             var actionRequest = new ActionRequest(input, action);
             var resolver = new ActionResolver();
             ActionResponse response = resolver.Execute(actionRequest);
+            Console.WriteLine($"Output response is {response.Output}");
             resolver.Logger.ReadAll();
             Console.ReadLine();
         }
