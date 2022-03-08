@@ -29,7 +29,7 @@ namespace Session_05
                         actionResponse.Output = inputInBinary;
                         var message = new Message()
                         {
-                            MessageString = $"Converted decimal input {decimalInput} to binary {inputInBinary}"
+                            MessageString = $"Converted decimal input {decimalInput} to binary {inputInBinary}."
                         };
                         Logger.Write(message);
                     }
@@ -46,23 +46,52 @@ namespace Session_05
                 case ActionEnum.Uppercase:
                     if (actionRequest.Input.GetType() == typeof(string))
                     {
+                        var message = new Message();
                         if (WordsInInput(actionRequest.Input) > 1)
                         {
                             actionResponse.Output = FindLongestWord(actionRequest.Input).ToUpper();
+                            message.MessageString = "Turned from lower case to upper case the first letter of the longest word of given input.";
                         }
                         else
                         {
                             actionResponse.Output = actionRequest.Input.ToUpper();
+                            message.MessageString = "Turned from lower case to upper case the first letter of given input.";
                         }
+                        Logger.Write(message);
+                    }
+                    else
+                    {
+                        var message = new Message()
+                        {
+                            MessageString = "The given input wasn't string type."
+                        };
+                        Logger.Write(message);
                     }
                     break;
                 case ActionEnum.Reverse:
                     if (actionRequest.Input.GetType() == typeof(string))
                     {
+                        var message = new Message()
+                        {
+                            MessageString = "Reversed the given string."
+                        };
                         actionResponse.Output = GetReversed(actionRequest.Input);
+                    }
+                    else
+                    {
+                        var message = new Message()
+                        {
+                            MessageString = "The given input wasn't string type."
+                        };
+                        Logger.Write(message);
                     }
                     break;
                 default:
+                    var errorMessage = new Message()
+                    {
+                        MessageString = "The given Action was not valid."
+                    };
+                    Logger.Write(errorMessage);
                     break;
             }
             return actionResponse;
