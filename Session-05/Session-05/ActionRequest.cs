@@ -13,9 +13,24 @@ namespace Session_05
         public string Input { get; set; }
         public ActionEnum Action { get; set; }
 
-        public ActionRequest()
+        public ActionRequest(string input, string action)
         {
             RequestID = Guid.NewGuid();
+            Input = input;
+            switch (action)
+            {
+                case "Convert":
+                    Action = ActionEnum.Convert;
+                    break;
+                case "Uppercase":
+                    Action = ActionEnum.Uppercase;
+                    break;
+                case "Reverse":
+                    Action = ActionEnum.Reverse;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

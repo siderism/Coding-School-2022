@@ -10,6 +10,14 @@ namespace Session_05
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Give an Action between Convert, Uppercase and Reverse");
+            string action = Console.ReadLine();
+            Console.WriteLine("Give a string");
+            string input = Console.ReadLine();
+            var actionRequest = new ActionRequest(input, action);
+            var resolver = new ActionResolver();
+            ActionResponse response = resolver.Execute(actionRequest);
+            Console.ReadLine();
         }
     }
 }
