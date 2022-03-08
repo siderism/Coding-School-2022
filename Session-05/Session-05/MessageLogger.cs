@@ -32,7 +32,7 @@ namespace Session_05
         {
             for (int i = 0; i < Messages.Length; i++)
             {
-                if (Messages[i].MessageString == null)
+                if (Messages[i] == null)
                 {
                     Messages[i] = new Message
                     {
