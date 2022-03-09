@@ -38,6 +38,11 @@ namespace Session_06
             try
             {
                 double num1 = Convert.ToDouble(this.textBox1.Text);
+                if (num1 < 0)
+                {
+                    this.textLogger.Text += "Can\'t find square root of a negative number." + Environment.NewLine;
+                    return;
+                }
                 var square = new Calculator.SquareRoot(num1);
                 string result = square.Execute();
                 this.textLogger.Text += "√" + this.textBox1.Text + " = " + result + Environment.NewLine;
@@ -115,6 +120,11 @@ namespace Session_06
             {
                 this.textLogger.Text += ex.Message + Environment.NewLine;
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
