@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace UniversityLibrary
 {
+    [Serializable]
     public class Person
     {
         public Guid ID { get; set; }

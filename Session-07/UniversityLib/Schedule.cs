@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace UniversityLibrary
 {
+    [Serializable]
     public class Schedule
     {
         public Guid ID { get; set; }

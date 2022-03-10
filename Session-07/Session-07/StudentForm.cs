@@ -21,5 +21,25 @@ namespace Session_07
         private void StudentForm_Load(object sender, EventArgs e)
         {
         }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            SaveStudentsToJSON();
+        }
+
+        private void SaveStudentsToJSON()
+        {
+            
+        }
+
+        private void loadButton_Click(object sender, EventArgs e)
+        {
+            LoadStudents();
+        }
+
+        private void LoadStudents()
+        {
+
+        }
     }
 }

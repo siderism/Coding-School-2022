@@ -2,6 +2,7 @@
 
 namespace UniversityLibrary
 {
+    [Serializable]
     public class Institute
     {
         public Guid ID { get; set; }
