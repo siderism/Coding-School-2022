@@ -34,8 +34,14 @@
             this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.newCourseButton = new DevExpress.XtraEditors.SimpleButton();
+            this.deleteCourseButton = new DevExpress.XtraEditors.SimpleButton();
+            this.updateCourseButton = new DevExpress.XtraEditors.SimpleButton();
+            this.closeButton = new DevExpress.XtraEditors.SimpleButton();
+            this.coursesListBox = new DevExpress.XtraEditors.ListBoxControl();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coursesListBox)).BeginInit();
             this.SuspendLayout();
             // 
             // saveButton
@@ -58,21 +64,21 @@
             // 
             // textEdit1
             // 
-            this.textEdit1.Location = new System.Drawing.Point(174, 85);
+            this.textEdit1.Location = new System.Drawing.Point(564, 32);
             this.textEdit1.Name = "textEdit1";
             this.textEdit1.Size = new System.Drawing.Size(100, 20);
             this.textEdit1.TabIndex = 2;
             // 
             // textEdit2
             // 
-            this.textEdit2.Location = new System.Drawing.Point(174, 123);
+            this.textEdit2.Location = new System.Drawing.Point(564, 70);
             this.textEdit2.Name = "textEdit2";
             this.textEdit2.Size = new System.Drawing.Size(100, 20);
             this.textEdit2.TabIndex = 3;
             // 
             // labelControl1
             // 
-            this.labelControl1.Location = new System.Drawing.Point(127, 88);
+            this.labelControl1.Location = new System.Drawing.Point(517, 35);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(25, 13);
             this.labelControl1.TabIndex = 4;
@@ -80,17 +86,66 @@
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(127, 130);
+            this.labelControl2.Location = new System.Drawing.Point(517, 77);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(36, 13);
             this.labelControl2.TabIndex = 5;
             this.labelControl2.Text = "Subject";
+            // 
+            // newCourseButton
+            // 
+            this.newCourseButton.Location = new System.Drawing.Point(467, 416);
+            this.newCourseButton.Name = "newCourseButton";
+            this.newCourseButton.Size = new System.Drawing.Size(75, 23);
+            this.newCourseButton.TabIndex = 6;
+            this.newCourseButton.Text = "New";
+            this.newCourseButton.Click += new System.EventHandler(this.newCourseButton_Click);
+            // 
+            // deleteCourseButton
+            // 
+            this.deleteCourseButton.Location = new System.Drawing.Point(549, 416);
+            this.deleteCourseButton.Name = "deleteCourseButton";
+            this.deleteCourseButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteCourseButton.TabIndex = 7;
+            this.deleteCourseButton.Text = "Delete";
+            this.deleteCourseButton.Click += new System.EventHandler(this.deleteCourseButton_Click);
+            // 
+            // updateCourseButton
+            // 
+            this.updateCourseButton.Location = new System.Drawing.Point(631, 416);
+            this.updateCourseButton.Name = "updateCourseButton";
+            this.updateCourseButton.Size = new System.Drawing.Size(75, 23);
+            this.updateCourseButton.TabIndex = 8;
+            this.updateCourseButton.Text = "Update";
+            this.updateCourseButton.Click += new System.EventHandler(this.updateCourseButton_Click);
+            // 
+            // closeButton
+            // 
+            this.closeButton.Location = new System.Drawing.Point(713, 415);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(75, 23);
+            this.closeButton.TabIndex = 9;
+            this.closeButton.Text = "Close";
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            // 
+            // coursesListBox
+            // 
+            this.coursesListBox.Location = new System.Drawing.Point(13, 31);
+            this.coursesListBox.Name = "coursesListBox";
+            this.coursesListBox.Size = new System.Drawing.Size(448, 408);
+            this.coursesListBox.TabIndex = 10;
+            this.coursesListBox.SelectedIndexChanged += new System.EventHandler(this.coursesListBox_SelectedIndexChanged);
             // 
             // CourseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.coursesListBox);
+            this.Controls.Add(this.closeButton);
+            this.Controls.Add(this.updateCourseButton);
+            this.Controls.Add(this.deleteCourseButton);
+            this.Controls.Add(this.newCourseButton);
             this.Controls.Add(this.labelControl2);
             this.Controls.Add(this.labelControl1);
             this.Controls.Add(this.textEdit2);
@@ -101,6 +156,7 @@
             this.Text = "CourseForm";
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coursesListBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -114,5 +170,10 @@
         private DevExpress.XtraEditors.TextEdit textEdit2;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.SimpleButton newCourseButton;
+        private DevExpress.XtraEditors.SimpleButton deleteCourseButton;
+        private DevExpress.XtraEditors.SimpleButton updateCourseButton;
+        private DevExpress.XtraEditors.SimpleButton closeButton;
+        private DevExpress.XtraEditors.ListBoxControl coursesListBox;
     }
 }

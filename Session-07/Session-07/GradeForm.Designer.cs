@@ -36,9 +36,15 @@
             this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
             this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
             this.textEdit3 = new DevExpress.XtraEditors.TextEdit();
+            this.newGradeButton = new DevExpress.XtraEditors.SimpleButton();
+            this.deleteGradeButton = new DevExpress.XtraEditors.SimpleButton();
+            this.updateGradeButton = new DevExpress.XtraEditors.SimpleButton();
+            this.closeButton = new DevExpress.XtraEditors.SimpleButton();
+            this.gradesListBox = new DevExpress.XtraEditors.ListBoxControl();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gradesListBox)).BeginInit();
             this.SuspendLayout();
             // 
             // saveButton
@@ -61,7 +67,7 @@
             // 
             // labelControl1
             // 
-            this.labelControl1.Location = new System.Drawing.Point(13, 69);
+            this.labelControl1.Location = new System.Drawing.Point(490, 40);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(52, 13);
             this.labelControl1.TabIndex = 2;
@@ -69,7 +75,7 @@
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(13, 101);
+            this.labelControl2.Location = new System.Drawing.Point(490, 72);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(48, 13);
             this.labelControl2.TabIndex = 3;
@@ -77,7 +83,7 @@
             // 
             // labelControl3
             // 
-            this.labelControl3.Location = new System.Drawing.Point(13, 136);
+            this.labelControl3.Location = new System.Drawing.Point(490, 107);
             this.labelControl3.Name = "labelControl3";
             this.labelControl3.Size = new System.Drawing.Size(58, 13);
             this.labelControl3.TabIndex = 4;
@@ -85,30 +91,79 @@
             // 
             // textEdit1
             // 
-            this.textEdit1.Location = new System.Drawing.Point(93, 69);
+            this.textEdit1.Location = new System.Drawing.Point(570, 40);
             this.textEdit1.Name = "textEdit1";
             this.textEdit1.Size = new System.Drawing.Size(100, 20);
             this.textEdit1.TabIndex = 5;
             // 
             // textEdit2
             // 
-            this.textEdit2.Location = new System.Drawing.Point(93, 101);
+            this.textEdit2.Location = new System.Drawing.Point(570, 72);
             this.textEdit2.Name = "textEdit2";
             this.textEdit2.Size = new System.Drawing.Size(100, 20);
             this.textEdit2.TabIndex = 6;
             // 
             // textEdit3
             // 
-            this.textEdit3.Location = new System.Drawing.Point(93, 136);
+            this.textEdit3.Location = new System.Drawing.Point(570, 107);
             this.textEdit3.Name = "textEdit3";
             this.textEdit3.Size = new System.Drawing.Size(100, 20);
             this.textEdit3.TabIndex = 7;
+            // 
+            // newGradeButton
+            // 
+            this.newGradeButton.Location = new System.Drawing.Point(467, 416);
+            this.newGradeButton.Name = "newGradeButton";
+            this.newGradeButton.Size = new System.Drawing.Size(75, 23);
+            this.newGradeButton.TabIndex = 8;
+            this.newGradeButton.Text = "New";
+            this.newGradeButton.Click += new System.EventHandler(this.newGradeButton_Click);
+            // 
+            // deleteGradeButton
+            // 
+            this.deleteGradeButton.Location = new System.Drawing.Point(549, 415);
+            this.deleteGradeButton.Name = "deleteGradeButton";
+            this.deleteGradeButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteGradeButton.TabIndex = 9;
+            this.deleteGradeButton.Text = "Delete";
+            this.deleteGradeButton.Click += new System.EventHandler(this.deleteGradeButton_Click);
+            // 
+            // updateGradeButton
+            // 
+            this.updateGradeButton.Location = new System.Drawing.Point(631, 414);
+            this.updateGradeButton.Name = "updateGradeButton";
+            this.updateGradeButton.Size = new System.Drawing.Size(75, 23);
+            this.updateGradeButton.TabIndex = 10;
+            this.updateGradeButton.Text = "Update";
+            this.updateGradeButton.Click += new System.EventHandler(this.updateGradeButton_Click);
+            // 
+            // closeButton
+            // 
+            this.closeButton.Location = new System.Drawing.Point(713, 415);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(75, 23);
+            this.closeButton.TabIndex = 11;
+            this.closeButton.Text = "Close";
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            // 
+            // gradesListBox
+            // 
+            this.gradesListBox.Location = new System.Drawing.Point(13, 36);
+            this.gradesListBox.Name = "gradesListBox";
+            this.gradesListBox.Size = new System.Drawing.Size(448, 403);
+            this.gradesListBox.TabIndex = 12;
+            this.gradesListBox.SelectedIndexChanged += new System.EventHandler(this.gradesListBox_SelectedIndexChanged);
             // 
             // GradeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.gradesListBox);
+            this.Controls.Add(this.closeButton);
+            this.Controls.Add(this.updateGradeButton);
+            this.Controls.Add(this.deleteGradeButton);
+            this.Controls.Add(this.newGradeButton);
             this.Controls.Add(this.textEdit3);
             this.Controls.Add(this.textEdit2);
             this.Controls.Add(this.textEdit1);
@@ -122,6 +177,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gradesListBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -137,5 +193,10 @@
         private DevExpress.XtraEditors.TextEdit textEdit1;
         private DevExpress.XtraEditors.TextEdit textEdit2;
         private DevExpress.XtraEditors.TextEdit textEdit3;
+        private DevExpress.XtraEditors.SimpleButton newGradeButton;
+        private DevExpress.XtraEditors.SimpleButton deleteGradeButton;
+        private DevExpress.XtraEditors.SimpleButton updateGradeButton;
+        private DevExpress.XtraEditors.SimpleButton closeButton;
+        private DevExpress.XtraEditors.ListBoxControl gradesListBox;
     }
 }

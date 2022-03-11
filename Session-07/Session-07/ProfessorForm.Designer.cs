@@ -36,9 +36,15 @@
             this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
             this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
             this.textEdit3 = new DevExpress.XtraEditors.TextEdit();
+            this.newProfessorButton = new DevExpress.XtraEditors.SimpleButton();
+            this.deleteProfessorButton = new DevExpress.XtraEditors.SimpleButton();
+            this.updateProfessorButton = new DevExpress.XtraEditors.SimpleButton();
+            this.closeButton = new DevExpress.XtraEditors.SimpleButton();
+            this.professorsListBox = new DevExpress.XtraEditors.ListBoxControl();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.professorsListBox)).BeginInit();
             this.SuspendLayout();
             // 
             // saveButton
@@ -61,7 +67,7 @@
             // 
             // labelControl1
             // 
-            this.labelControl1.Location = new System.Drawing.Point(12, 69);
+            this.labelControl1.Location = new System.Drawing.Point(515, 35);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(27, 13);
             this.labelControl1.TabIndex = 2;
@@ -69,7 +75,7 @@
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(12, 95);
+            this.labelControl2.Location = new System.Drawing.Point(515, 61);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(19, 13);
             this.labelControl2.TabIndex = 3;
@@ -77,7 +83,7 @@
             // 
             // labelControl3
             // 
-            this.labelControl3.Location = new System.Drawing.Point(12, 121);
+            this.labelControl3.Location = new System.Drawing.Point(515, 87);
             this.labelControl3.Name = "labelControl3";
             this.labelControl3.Size = new System.Drawing.Size(24, 13);
             this.labelControl3.TabIndex = 4;
@@ -85,30 +91,79 @@
             // 
             // textEdit1
             // 
-            this.textEdit1.Location = new System.Drawing.Point(45, 66);
+            this.textEdit1.Location = new System.Drawing.Point(548, 32);
             this.textEdit1.Name = "textEdit1";
             this.textEdit1.Size = new System.Drawing.Size(100, 20);
             this.textEdit1.TabIndex = 5;
             // 
             // textEdit2
             // 
-            this.textEdit2.Location = new System.Drawing.Point(45, 92);
+            this.textEdit2.Location = new System.Drawing.Point(548, 58);
             this.textEdit2.Name = "textEdit2";
             this.textEdit2.Size = new System.Drawing.Size(40, 20);
             this.textEdit2.TabIndex = 6;
             // 
             // textEdit3
             // 
-            this.textEdit3.Location = new System.Drawing.Point(45, 118);
+            this.textEdit3.Location = new System.Drawing.Point(548, 84);
             this.textEdit3.Name = "textEdit3";
             this.textEdit3.Size = new System.Drawing.Size(100, 20);
             this.textEdit3.TabIndex = 7;
+            // 
+            // newProfessorButton
+            // 
+            this.newProfessorButton.Location = new System.Drawing.Point(467, 415);
+            this.newProfessorButton.Name = "newProfessorButton";
+            this.newProfessorButton.Size = new System.Drawing.Size(75, 23);
+            this.newProfessorButton.TabIndex = 8;
+            this.newProfessorButton.Text = "New";
+            this.newProfessorButton.Click += new System.EventHandler(this.newProfessorButton_Click);
+            // 
+            // deleteProfessorButton
+            // 
+            this.deleteProfessorButton.Location = new System.Drawing.Point(549, 415);
+            this.deleteProfessorButton.Name = "deleteProfessorButton";
+            this.deleteProfessorButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteProfessorButton.TabIndex = 9;
+            this.deleteProfessorButton.Text = "Delete";
+            this.deleteProfessorButton.Click += new System.EventHandler(this.deleteProfessorButton_Click);
+            // 
+            // updateProfessorButton
+            // 
+            this.updateProfessorButton.Location = new System.Drawing.Point(631, 415);
+            this.updateProfessorButton.Name = "updateProfessorButton";
+            this.updateProfessorButton.Size = new System.Drawing.Size(75, 23);
+            this.updateProfessorButton.TabIndex = 10;
+            this.updateProfessorButton.Text = "Update";
+            this.updateProfessorButton.Click += new System.EventHandler(this.updateProfessorButton_Click);
+            // 
+            // closeButton
+            // 
+            this.closeButton.Location = new System.Drawing.Point(713, 415);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(75, 23);
+            this.closeButton.TabIndex = 11;
+            this.closeButton.Text = "Close";
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            // 
+            // professorsListBox
+            // 
+            this.professorsListBox.Location = new System.Drawing.Point(13, 31);
+            this.professorsListBox.Name = "professorsListBox";
+            this.professorsListBox.Size = new System.Drawing.Size(448, 407);
+            this.professorsListBox.TabIndex = 12;
+            this.professorsListBox.SelectedIndexChanged += new System.EventHandler(this.professorsListBox_SelectedIndexChanged);
             // 
             // ProfessorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.professorsListBox);
+            this.Controls.Add(this.closeButton);
+            this.Controls.Add(this.updateProfessorButton);
+            this.Controls.Add(this.deleteProfessorButton);
+            this.Controls.Add(this.newProfessorButton);
             this.Controls.Add(this.textEdit3);
             this.Controls.Add(this.textEdit2);
             this.Controls.Add(this.textEdit1);
@@ -122,6 +177,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.professorsListBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -137,5 +193,10 @@
         private DevExpress.XtraEditors.TextEdit textEdit1;
         private DevExpress.XtraEditors.TextEdit textEdit2;
         private DevExpress.XtraEditors.TextEdit textEdit3;
+        private DevExpress.XtraEditors.SimpleButton newProfessorButton;
+        private DevExpress.XtraEditors.SimpleButton deleteProfessorButton;
+        private DevExpress.XtraEditors.SimpleButton updateProfessorButton;
+        private DevExpress.XtraEditors.SimpleButton closeButton;
+        private DevExpress.XtraEditors.ListBoxControl professorsListBox;
     }
 }
