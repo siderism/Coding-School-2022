@@ -40,13 +40,14 @@ namespace Session_07
         {
             string json = new JavaScriptSerializer().Serialize(Grades);
             File.WriteAllText(GRADE_FILE, json);
+            MessageBox.Show("Data saved to file successfully");
         }
 
         private void LoadGrades()
         {
             string data = File.ReadAllText(GRADE_FILE);
             Grades = new JavaScriptSerializer().Deserialize<List<Grade>>(data);
-            ShowList();
+            MessageBox.Show("Data loaded successfully");
         }
 
         private void gradesListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -86,13 +87,21 @@ namespace Session_07
 
         private void CreateGrade()
         {
-            _grade = new Grade()
+            try
             {
-                StudentID = Guid.Parse(textEdit1.EditValue.ToString()),
-                CourseID = Guid.Parse(textEdit2.EditValue.ToString()),
-                GradeValue = Convert.ToInt32(textEdit3.EditValue.ToString()),
-            };
-            Grades.Add(_grade);
+                var grade = new Grade()
+                {
+                    StudentID = Guid.Parse(textEdit1.EditValue.ToString()),
+                    CourseID = Guid.Parse(textEdit2.EditValue.ToString()),
+                    GradeValue = Convert.ToInt32(textEdit3.EditValue.ToString()),
+                };
+                _grade = grade;
+                Grades.Add(_grade);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Unable to Create new Grade. Check the values and try again.", MessageBoxIcon.Warning.ToString());
+            }
         }
 
         private void DeleteGrade()
@@ -102,9 +111,20 @@ namespace Session_07
 
         private void UpdateGrade()
         {
-            _grade.StudentID = Guid.Parse(textEdit1.EditValue.ToString());
-            _grade.CourseID = Guid.Parse(textEdit2.EditValue.ToString());
-            _grade.GradeValue = Convert.ToInt32(textEdit3.EditValue.ToString());
+            try
+            {
+                var grade = new Grade()
+                {
+                    StudentID = Guid.Parse(textEdit1.EditValue.ToString()),
+                    CourseID = Guid.Parse(textEdit2.EditValue.ToString()),
+                    GradeValue = Convert.ToInt32(textEdit3.EditValue.ToString()),
+                };
+                _grade = grade;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Unable to Update Grade. Check the values and try again.", MessageBoxIcon.Warning.ToString());
+            }
         }
 
         private void ShowList()

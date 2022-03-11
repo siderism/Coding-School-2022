@@ -41,12 +41,14 @@ namespace Session_07
         {
             string json = new JavaScriptSerializer().Serialize(Courses);
             File.WriteAllText(COURSE_FILE, json);
+            MessageBox.Show("Data saved to file successfully");
         }
 
         private void LoadCourses()
         {
             string data = File.ReadAllText(COURSE_FILE);
             Courses = new JavaScriptSerializer().Deserialize<List<Course>>(data);
+            MessageBox.Show("Data loaded successfully");
         }
 
         private void coursesListBox_SelectedIndexChanged(object sender, EventArgs e)

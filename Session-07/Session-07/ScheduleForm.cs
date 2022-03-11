@@ -32,19 +32,21 @@ namespace Session_07
         private void loadButton_Click(object sender, EventArgs e)
         {
             LoadSchedules();
+            ShowList();
         }
 
         private void SaveSchedulesToJSON()
         {
             string json = new JavaScriptSerializer().Serialize(Schedules);
             File.WriteAllText(SCHEDULE_FILE, json);
+            MessageBox.Show("Data saved to file successfully");
         }
 
         private void LoadSchedules()
         {
             string data = File.ReadAllText(SCHEDULE_FILE);
             Schedules = new JavaScriptSerializer().Deserialize<List<Schedule>>(data);
-            ShowList();
+            MessageBox.Show("Data loaded successfully");
         }
 
         private void newScheduleButton_Click(object sender, EventArgs e)
@@ -84,13 +86,21 @@ namespace Session_07
 
         private void CreateSchedule()
         {
-            _schedule = new Schedule()
+            try
             {
-                CourseID = Guid.Parse(textEdit1.EditValue.ToString()),
-                ProfessorID = Guid.Parse(textEdit2.EditValue.ToString()),
-                Callendar = DateTime.Parse(dateEdit1.EditValue.ToString())
-            };
-            Schedules.Add(_schedule);
+                var schedule = new Schedule()
+                {
+                    CourseID = Guid.Parse(textEdit1.EditValue.ToString()),
+                    ProfessorID = Guid.Parse(textEdit2.EditValue.ToString()),
+                    Callendar = DateTime.Parse(dateEdit1.EditValue.ToString())
+                };
+                _schedule = schedule;
+                Schedules.Add(_schedule);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Unable to Create new Schedule. Check the values and try again.", MessageBoxIcon.Warning.ToString());
+            }            
         }
 
         private void DeleteSchedule()
@@ -100,9 +110,21 @@ namespace Session_07
 
         private void UpdateSchedule()
         {
-            _schedule.CourseID = Guid.Parse(textEdit1.EditValue.ToString());
-            _schedule.ProfessorID = Guid.Parse(textEdit2.EditValue.ToString());
-            _schedule.Callendar = DateTime.Parse(dateEdit1.EditValue.ToString());
+            try
+            {
+                Schedule schedule = new Schedule()
+                {
+                    CourseID = Guid.Parse(textEdit1.EditValue.ToString()),
+                    ProfessorID = Guid.Parse(textEdit2.EditValue.ToString()),
+                    Callendar = DateTime.Parse(dateEdit1.EditValue.ToString())
+                };
+                _schedule = schedule;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Unable to Update Schedule. Check the values and try again.", MessageBoxIcon.Warning.ToString());
+            }
+            
         }
 
         private void ShowList()

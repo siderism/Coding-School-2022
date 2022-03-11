@@ -37,19 +37,21 @@ namespace Session_07
         private void loadButton_Click(object sender, EventArgs e)
         {
             LoadStudents();
+            ShowList();
         }
 
         private void SaveStudentsToJSON()
         {
             string json = new JavaScriptSerializer().Serialize(Students);
             File.WriteAllText(STUDENT_FILE, json);
+            MessageBox.Show("Data saved to file successfully");
         }
 
         private void LoadStudents()
         {
             string data = File.ReadAllText(STUDENT_FILE);
             Students = new JavaScriptSerializer().Deserialize<List<Student>>(data);
-            ShowList();
+            MessageBox.Show("Data loaded successfully");
         }
 
         private void studentListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -89,13 +91,20 @@ namespace Session_07
 
         private void CreateStudent()
         {
-            _student = new Student()
+            try
             {
-                Name = textEdit1.EditValue.ToString(),
-                Age = Convert.ToInt32(textEdit2.EditValue),
-                RegistrationNumber = Convert.ToInt32(textEdit3.EditValue),
-            };
-            Students.Add(_student);
+                var student = new Student() { 
+                    Name = textEdit1.EditValue.ToString(), 
+                    Age = Convert.ToInt32(textEdit2.EditValue), 
+                    RegistrationNumber = Convert.ToInt32(textEdit3.EditValue) 
+                };
+                _student = student;
+                Students.Add(_student);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Unable to Create new Student. Check the values and try again.", MessageBoxIcon.Warning.ToString());
+            }
         }
 
         private void DeleteStudent()
@@ -105,9 +114,20 @@ namespace Session_07
 
         private void UpdateStudent()
         {
-            _student.Name = textEdit1.EditValue.ToString();
-            _student.Age = Convert.ToInt32(textEdit2.EditValue);
-            _student.RegistrationNumber = Convert.ToInt32(textEdit3.EditValue);
+            try
+            {
+                var student = new Student
+                {
+                    Name = textEdit1.EditValue.ToString(),
+                    Age = Convert.ToInt32(textEdit2.EditValue),
+                    RegistrationNumber = Convert.ToInt32(textEdit3.EditValue)
+                };
+                _student = student;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Unable to Update Student. Check the values and try again.", MessageBoxIcon.Warning.ToString());
+            }
         }
 
         private void ShowList()

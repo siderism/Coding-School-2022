@@ -41,12 +41,14 @@ namespace Session_07
         {
             string json = new JavaScriptSerializer().Serialize(Professors);
             File.WriteAllText(PROFESSOR_FILE, json);
+            MessageBox.Show("Data saved to file successfully");
         }
 
         private void LoadProfessors()
         {
             string data = File.ReadAllText(PROFESSOR_FILE);
             Professors = new JavaScriptSerializer().Deserialize<List<Professor>>(data);
+            MessageBox.Show("Data loaded successfully");
         }
 
         private void newProfessorButton_Click(object sender, EventArgs e)
@@ -86,13 +88,19 @@ namespace Session_07
 
         private void CreateProfessor()
         {
-            _professor = new Professor()
+            var professor = new Professor();
+            try
             {
-                Name = textEdit1.EditValue.ToString(),
-                Age = Convert.ToInt32(textEdit2.EditValue),
-                Rank = textEdit3.EditValue.ToString(),
-            };
-            Professors.Add(_professor);
+                professor.Name = textEdit1.EditValue.ToString();
+                professor.Age = Convert.ToInt32(textEdit2.EditValue);
+                professor.Rank = textEdit3.EditValue.ToString();
+                _professor = professor;
+                Professors.Add(_professor);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Unable to Create new Professor. Check the values and try again.", MessageBoxIcon.Warning.ToString());
+            }
         }
 
         private void DeleteStudent()
@@ -102,9 +110,18 @@ namespace Session_07
 
         private void UpdateProfessor()
         {
-            _professor.Name = textEdit1.EditValue.ToString();
-            _professor.Age = Convert.ToInt32(textEdit2.EditValue);
-            _professor.Rank = textEdit3.EditValue.ToString();
+            try
+            {
+                var professor = new Professor();
+                professor.Name = textEdit1.EditValue.ToString();
+                professor.Age = Convert.ToInt32(textEdit2.EditValue);
+                professor.Rank = textEdit3.EditValue.ToString();
+                _professor = professor;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Unable to Update Professor. Check the values and try again.", MessageBoxIcon.Warning.ToString());
+            }
         }
 
         private void ShowList()
