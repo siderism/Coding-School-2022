@@ -31,5 +31,12 @@ namespace Session_14.EF.Context
             modelBuilder.ApplyConfiguration(new TransactionConfiguration());
             modelBuilder.ApplyConfiguration(new TransactionLineConfiguration());
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
+        {
+            base.OnConfiguring(optionBuilder);
+            var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Session-14;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            optionBuilder.UseSqlServer(connectionString);
+        }
     }
 }

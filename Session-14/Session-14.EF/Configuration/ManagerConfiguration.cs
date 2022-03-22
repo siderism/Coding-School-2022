@@ -15,7 +15,7 @@ namespace Session_14.EF.Configuration
         {
             builder.Property(m => m.Name).IsRequired().HasMaxLength(50);
             builder.Property(m => m.Surname).IsRequired().HasMaxLength(50);
-            builder.Property(m => m.FullName).IsRequired().HasMaxLength(100);
+            //builder.Property(m => m.FullName).IsRequired().HasMaxLength(100);
             builder.Property(m => m.SallaryPerMonth).IsRequired();
         }
     }
