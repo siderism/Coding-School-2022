@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Session_14.EF.Context;
 
@@ -11,9 +12,10 @@ using Session_14.EF.Context;
 namespace Session_14.EF.Migrations
 {
     [DbContext(typeof(Session_14Context))]
-    partial class Session_14ContextModelSnapshot : ModelSnapshot
+    [Migration("20220322135206_ignoreFullName")]
+    partial class ignoreFullName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

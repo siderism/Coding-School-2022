@@ -30,6 +30,9 @@ namespace Session_14.EF.Context
             modelBuilder.ApplyConfiguration(new ServiceTaskConfiguration());
             modelBuilder.ApplyConfiguration(new TransactionConfiguration());
             modelBuilder.ApplyConfiguration(new TransactionLineConfiguration());
+            modelBuilder.Entity<Manager>().Ignore(m => m.FullName);
+            modelBuilder.Entity<Engineer>().Ignore(e => e.Name);
+            modelBuilder.Entity<Customer>().Ignore(c => c.Name);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)

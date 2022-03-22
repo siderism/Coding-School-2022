@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Session_14.EF.Context;
 
@@ -11,9 +12,10 @@ using Session_14.EF.Context;
 namespace Session_14.EF.Migrations
 {
     [DbContext(typeof(Session_14Context))]
-    partial class Session_14ContextModelSnapshot : ModelSnapshot
+    [Migration("20220322134819_addedFullName")]
+    partial class addedFullName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,72 +50,21 @@ namespace Session_14.EF.Migrations
                     b.ToTable("Cars");
                 });
 
-            modelBuilder.Entity("Session_14.Model.Customer", b =>
+            modelBuilder.Entity("Session_14.Model.Person", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Phone")
+                    b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("TIN")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Customers");
-                });
-
-            modelBuilder.Entity("Session_14.Model.Engineer", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ManagerID")
-                        .IsRequired()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("SallaryPerMonth")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Engineers");
-                });
-
-            modelBuilder.Entity("Session_14.Model.Manager", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<decimal>("SallaryPerMonth")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -121,7 +72,9 @@ namespace Session_14.EF.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Managers");
+                    b.ToTable("Person");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Person");
                 });
 
             modelBuilder.Entity("Session_14.Model.ServiceTask", b =>
@@ -200,6 +153,51 @@ namespace Session_14.EF.Migrations
                     b.HasIndex("TransactionID");
 
                     b.ToTable("TransactionLines");
+                });
+
+            modelBuilder.Entity("Session_14.Model.Customer", b =>
+                {
+                    b.HasBaseType("Session_14.Model.Person");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("TIN")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasDiscriminator().HasValue("Customer");
+                });
+
+            modelBuilder.Entity("Session_14.Model.Engineer", b =>
+                {
+                    b.HasBaseType("Session_14.Model.Person");
+
+                    b.Property<Guid?>("ManagerID")
+                        .IsRequired()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("SallaryPerMonth")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("Engineer_SallaryPerMonth");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("Engineer");
+                });
+
+            modelBuilder.Entity("Session_14.Model.Manager", b =>
+                {
+                    b.HasBaseType("Session_14.Model.Person");
+
+                    b.Property<decimal>("SallaryPerMonth")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasDiscriminator().HasValue("Manager");
                 });
 
             modelBuilder.Entity("Session_14.Model.TransactionLine", b =>
