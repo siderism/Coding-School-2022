@@ -14,7 +14,7 @@ namespace Session_14.EF.Repos
         {
             var _context = new Session_14Context();
             var customerExist = _context.Customers.FirstOrDefault(c => c.ID == entity.ID);
-            if (customerExist is null)
+            if (customerExist is not null)
             {
                 return;
             }

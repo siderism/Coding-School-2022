@@ -14,7 +14,7 @@ namespace Session_14.EF.Repos
         {
             var _context = new Session_14Context();
             var serviceExist = _context.ServiceTasks.FirstOrDefault(s => s.ID == entity.ID);
-            if (serviceExist is null)
+            if (serviceExist is not null)
             {
                 return;
             }

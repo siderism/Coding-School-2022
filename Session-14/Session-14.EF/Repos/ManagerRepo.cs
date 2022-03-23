@@ -14,7 +14,7 @@ namespace Session_14.EF.Repos
         {
             var _context = new Session_14Context();
             var managerExist = _context.Managers.FirstOrDefault(m => m.ID == entity.ID);
-            if (managerExist is null)
+            if (managerExist is not null)
             {
                 return;
             }

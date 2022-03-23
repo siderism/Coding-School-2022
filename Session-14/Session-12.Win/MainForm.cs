@@ -25,11 +25,21 @@ namespace Session_12.Win
 
         private void RefreshTransactions()
         {
-            _transactions = _transactionRepo.GetAll();
+            var databaseTrans = _transactionRepo.GetAll();
+            if (databaseTrans.Count > 0)
+            {
+                _transactions = databaseTrans;
+            }
+            
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = _transactions;
             dataGridView1.Refresh();
             dataGridView1.Update();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

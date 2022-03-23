@@ -15,7 +15,7 @@ namespace Session_14.EF.Repos
         {
             var _context = new Session_14Context();
             var transactionExist = _context.Transactions.FirstOrDefault(t => t.ID == entity.ID);
-            if (transactionExist is null)
+            if (transactionExist is not null)
             {
                 return;
             }

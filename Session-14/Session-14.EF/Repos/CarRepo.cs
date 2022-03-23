@@ -14,7 +14,7 @@ namespace Session_14.EF.Repos
         {
             var _context = new Session_14Context();
             var carExist = _context.Cars.FirstOrDefault(c => c.ID == entity.ID);
-            if (carExist is null)
+            if (carExist is not null)
             {
                 return;
             }

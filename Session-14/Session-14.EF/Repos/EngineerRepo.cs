@@ -14,7 +14,7 @@ namespace Session_14.EF.Repos
         {
             var _context = new Session_14Context();
             var engineerExist = _context.Engineers.FirstOrDefault(e => e.ID == entity.ID);
-            if (engineerExist is null)
+            if (engineerExist is not null)
             {
                 return;
             }
