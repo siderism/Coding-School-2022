@@ -13,6 +13,7 @@ namespace Session_14.EF.Configuration
     {
         public void Configure(EntityTypeBuilder<ServiceTask> builder)
         {
+            builder.HasKey(st => st.ID);
             builder.Property(st => st.Code).IsRequired().HasMaxLength(50);
             builder.Property(st => st.Description).IsRequired().HasMaxLength(200);
             builder.Property(st => st.Hours).IsRequired();

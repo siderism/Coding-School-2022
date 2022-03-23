@@ -14,6 +14,7 @@ namespace Session_14.Model
         public decimal Hours { get; set; }
         public decimal PricePerHour { get; }
         public decimal Price { get; set; }
+        public Transaction Transaction { get; set; }
 
         public TransactionLine()
         {

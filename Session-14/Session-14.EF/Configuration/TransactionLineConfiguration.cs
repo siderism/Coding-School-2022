@@ -13,9 +13,11 @@ namespace Session_14.EF.Configuration
     {
         public void Configure(EntityTypeBuilder<TransactionLine> builder)
         {
+            builder.HasKey(tl => tl.ID);
             builder.Property(tl => tl.EngineerID).IsRequired();
             builder.Property(tl => tl.TransactionID).IsRequired();
             builder.Property(tl => tl.ServiceTaskID).IsRequired();
+            builder.HasOne(tl => tl.Transaction).WithMany(t => t.TransactionLines).HasForeignKey(tl => tl.TransactionID);
         }
     }
 }

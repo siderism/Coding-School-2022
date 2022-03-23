@@ -13,9 +13,9 @@ namespace Session_14.EF.Configuration
     {
         public void Configure(EntityTypeBuilder<Manager> builder)
         {
+            builder.HasKey(m => m.ID);
             builder.Property(m => m.Name).IsRequired().HasMaxLength(50);
             builder.Property(m => m.Surname).IsRequired().HasMaxLength(50);
-            //builder.Property(m => m.FullName).IsRequired().HasMaxLength(100);
             builder.Property(m => m.SallaryPerMonth).IsRequired();
         }
     }

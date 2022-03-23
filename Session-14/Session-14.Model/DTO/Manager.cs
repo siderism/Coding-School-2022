@@ -6,15 +6,12 @@ using System.Threading.Tasks;
 
 namespace Session_14.Model
 {
-    public class Engineer : Person
+    public class Manager : Person
     {
-        public Guid? ManagerID { get; set; }
         public decimal SallaryPerMonth { get; set; }
-
-        public StatusEnum Status { get; set; }
-
-        public Engineer()
+        public Manager()
         {
+
         }
     }
 }

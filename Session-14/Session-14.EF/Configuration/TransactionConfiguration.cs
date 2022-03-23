@@ -14,9 +14,9 @@ namespace Session_14.EF.Configuration
     {
         public void Configure(EntityTypeBuilder<Transaction> builder)
         {
+            builder.HasKey(t => t.ID);
             builder.Property(t => t.CustomerID).IsRequired();
             builder.Property(t => t.ManagerID).IsRequired();
-            builder.Property(t => t.CarID).IsRequired();
         }
     }
 }

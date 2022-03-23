@@ -13,6 +13,7 @@ namespace Session_14.EF.Configuration
     {
         public void Configure(EntityTypeBuilder<Car> builder)
         {
+            builder.HasKey(c => c.ID);
             builder.Property(c => c.Model).IsRequired().HasMaxLength(50);
             builder.Property(c => c.Brand).IsRequired().HasMaxLength(50);
             builder.Property(c => c.CarRegNumber).IsRequired().HasMaxLength(50);
