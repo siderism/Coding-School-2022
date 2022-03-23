@@ -13,6 +13,23 @@ namespace Session_12.Win
             _transactionRepo = transactionRepo;
         }
 
-        
+        private void button2_Click(object sender, EventArgs e)
+        {
+            RefreshTransactions();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            //RefreshTransactions();
+        }
+
+        private void RefreshTransactions()
+        {
+            _transactions = _transactionRepo.GetAll();
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = _transactions;
+            dataGridView1.Refresh();
+            dataGridView1.Update();
+        }
     }
 }
