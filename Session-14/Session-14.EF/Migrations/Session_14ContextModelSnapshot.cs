@@ -45,7 +45,7 @@ namespace Session_14.EF.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Cars", (string)null);
                 });
 
             modelBuilder.Entity("Session_14.Model.Customer", b =>
@@ -76,7 +76,7 @@ namespace Session_14.EF.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("Session_14.Model.Engineer", b =>
@@ -107,7 +107,7 @@ namespace Session_14.EF.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Engineers");
+                    b.ToTable("Engineers", (string)null);
                 });
 
             modelBuilder.Entity("Session_14.Model.Manager", b =>
@@ -131,7 +131,7 @@ namespace Session_14.EF.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Managers");
+                    b.ToTable("Managers", (string)null);
                 });
 
             modelBuilder.Entity("Session_14.Model.ServiceTask", b =>
@@ -155,7 +155,7 @@ namespace Session_14.EF.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("ServiceTasks");
+                    b.ToTable("ServiceTasks", (string)null);
                 });
 
             modelBuilder.Entity("Session_14.Model.Transaction", b =>
@@ -181,7 +181,7 @@ namespace Session_14.EF.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Transactions");
+                    b.ToTable("Transactions", (string)null);
                 });
 
             modelBuilder.Entity("Session_14.Model.TransactionLine", b =>
@@ -209,7 +209,7 @@ namespace Session_14.EF.Migrations
 
                     b.HasIndex("TransactionID");
 
-                    b.ToTable("TransactionLines");
+                    b.ToTable("TransactionLines", (string)null);
                 });
 
             modelBuilder.Entity("Session_14.Model.TransactionLine", b =>
