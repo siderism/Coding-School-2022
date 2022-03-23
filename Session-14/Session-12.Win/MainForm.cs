@@ -39,7 +39,7 @@ namespace Session_12.Win
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            //Hard coding a Transaction object to populate _transactions
         }
     }
 }
