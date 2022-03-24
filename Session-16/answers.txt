@@ -1,4 +1,4 @@
-1 - Κάνοντας ένα request, στο header υπάρχει το url που θα πρέπει να σταλθεί το response. Επομένως, δεν είναι εφικτό να μην γνωρίζει το url μας
+1 - Κάνοντας χρήση referrer-policy
 2 - image/jpeg
 3 - Μέσα στον header του request θέτουμε στο Cache-Control το πεδίο max-age = 86400
 4 - Ναι
