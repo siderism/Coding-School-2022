@@ -1,4 +1,4 @@
-1 - Κάνοντας χρήση referrer-policy
+1 - Κάνοντας χρήση referrer-policy μέσα στο header του request
 2 - image/jpeg
 3 - Μέσα στον header του request θέτουμε στο Cache-Control το πεδίο max-age = 86400
 4 - Ναι
