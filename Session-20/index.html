@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 20</title>
+</head>
+<body>
+    <h1>Customer Details</h1>
+    <label for="txtInputName">Name</label>
+    <input id="txtInputName" type="text">
+    <label for="txtInputSurname">Surname</label>
+    <input id="txtInputSurname" type="text">
+    <label for="txtInputAge">Age</label>
+    <input id="txtInputAge" type="number">
+    <div id="gender">
+        <label>
+            Male
+            <input type="radio" value="Male" name="gender">
+        </label>
+        <label>
+            Female
+            <input type="radio" value="Female" name="gender">
+        </label>
+        <label>
+            Other
+            <input type="radio" value="Other" name="gender">
+        </label>  
+    </div>
+    <button onclick="addCustomer()">Add Customer</button>
+    <br>
+    <ul id="listCustomers"></ul>
+    <br>
+    <h2>Customer Info</h2>
+    <div>
+        <label for="infoName">Name </label>
+        <input id="infoName" type="text">
+    </div>
+    <div>
+        <label for="infoSurname">Surname </label>
+        <input id="infoSurname" type="text">
+    </div>
+    <div>
+        <label for="infoAge">Age </label>
+        <input id="infoAge" type="text">
+    </div>
+    <div>
+        <label for="infoGender">Gender </label>
+        <input id="infoGender" type="text">
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
