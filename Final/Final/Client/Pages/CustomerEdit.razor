@@ -1,0 +1,70 @@
+﻿@page "/customerList/Edit/{ID:int?}"
+@using Final.Shared
+@using Final.Shared.ViewModels
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+<h3>Customer Edit</h3>
+
+@if (customerEditViewModel == null)
+{
+    <p>Loading ...</p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <input class="form-control" @bind="@customerEditViewModel.Name"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Surname</label>
+            <input class="form-control" @bind="@customerEditViewModel.Surname"/>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col">
+            <button class="btn btn-success" @onclick="OnSave">Save</button>
+            <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    CustomerEditViewModel customerEditViewModel { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        customerEditViewModel = await httpClient.GetFromJsonAsync<CustomerEditViewModel>($"customer/{(Id == null ? 0 : Id)}");
+    }
+
+    protected async Task OnSave()
+    {
+        HttpResponseMessage response;
+        if(!HasValidData())
+            return;
+        if (Id == null)
+        {
+            response = await httpClient.PostAsJsonAsync("customer", customerEditViewModel);
+        }
+        else
+        {
+            response = await httpClient.PutAsJsonAsync("customer", customerEditViewModel);
+        }
+        response.EnsureSuccessStatusCode();
+        navigationManager.NavigateTo("customerlist");
+    }
+
+    protected void OnCancel()
+    {
+        navigationManager.NavigateTo("customerlist");
+    }
+
+    protected bool HasValidData()
+    {
+        return (!string.IsNullOrWhiteSpace(customerEditViewModel.Name)
+            && !string.IsNullOrWhiteSpace(customerEditViewModel.Surname));
+    }
+}

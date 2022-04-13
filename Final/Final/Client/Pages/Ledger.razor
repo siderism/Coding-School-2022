@@ -1,0 +1,88 @@
+﻿@page "/ledger"
+@using Final.Shared.ViewModels
+@using System.Globalization
+@inject HttpClient httpClient
+
+<h3>Ledger</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <label class="form-label">Year</label>
+        <input class="form-control" type="number" pattern="\d*" min="2000" max="2099" step="1" @bind="@_year"/>
+    </div>
+    <div class="col-md-4">
+            <label class="form-label">Month</label>
+            <select class="form-select" @bind="@_month" >
+                <option selected="selected" value="-1">Select Month</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Set Rent</label>
+        <input class="form-control" type="number" min="0" step="10" placeholder="5000" @bind="@_rent"/>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-primary" @onclick="Calculate">Calculate Ledger</button>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Month</th>
+            <th>Income</th>
+            <th>Expenses</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@_ledger.Year</td>
+            @if(_ledger.Month >0 && _ledger.Month <13)
+            {
+                <td>@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(_ledger.Month)</td>
+            }
+            else
+            {
+                <td> </td>
+            }
+            <td>@String.Format("{0:0.00}", _ledger.Income)</td>
+            <td>@String.Format("{0:0.00}", _ledger.Expenses)</td>
+            <td>@String.Format("{0:0.00}", _ledger.Total)</td>
+        </tr>
+    </tbody>
+</table>
+
+@code {
+    private LedgerViewModel _ledger = new();
+    private int _year = 2022;
+    private int _month = -1;
+    private decimal _rent = 5000m;
+
+    protected async Task Calculate()
+    {
+        if(!HasValidData())
+            return;
+        _ledger = await httpClient.GetFromJsonAsync<LedgerViewModel>($"ledger/{_year}/{_month}/{_rent}");
+        if (_ledger is null)
+            return;
+        
+    }
+
+    protected bool HasValidData()
+    {
+        return (_month > 0 && _month < 13) && _rent >= 0;
+    }
+}

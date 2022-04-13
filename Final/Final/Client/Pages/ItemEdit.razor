@@ -1,0 +1,93 @@
+﻿@page "/itemList/Edit/{ID:int?}"
+@using Final.Shared
+@using Final.Shared.ViewModels
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+<h3>Item Edit</h3>
+
+@if (itemViewModel == null)
+{
+    <p>Loading ...</p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">Code</label>
+            <input class="form-control" @bind="@itemViewModel.Code"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Description</label>
+            <input class="form-control" @bind="@itemViewModel.Description"/>
+        </div>
+         <div class="col-md-6">
+            <label class="form-label mt-2">Item Type</label>
+            <select class="form-select" @bind="@itemViewModel.ItemType">
+                @foreach (var type in Enum.GetValues(typeof(Model.ItemType)))
+                {
+                    <option value="@type">@type</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Price</label>
+            <input type="number" min=0 step=1.0 class="form-control" @bind="@itemViewModel.Price"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Cost</label>
+            <input type="number" min=0 step=1 class="form-control" @bind="@itemViewModel.Cost"/>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col">
+            <button class="btn btn-success" @onclick="OnSave">Save</button>
+            <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    ItemViewModel itemViewModel { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        itemViewModel = await httpClient.GetFromJsonAsync<ItemViewModel>($"item/{(Id == null ? 0 : Id)}");
+    }
+
+    protected async Task OnSave()
+    {
+        HttpResponseMessage response;
+        if(!HasValidData())
+            return;
+
+        if (itemViewModel.Code is null)
+                itemViewModel.Code = String.Empty;
+
+        if (Id == null)
+        {
+            response = await httpClient.PostAsJsonAsync("item", itemViewModel);
+        }
+        else
+        {
+            response = await httpClient.PutAsJsonAsync("item", itemViewModel);
+        }
+        response.EnsureSuccessStatusCode();
+        navigationManager.NavigateTo("itemlist");
+    }
+
+    protected void OnCancel()
+    {
+        navigationManager.NavigateTo("itemlist");
+    }
+
+    protected bool HasValidData()
+    {
+        return (!string.IsNullOrWhiteSpace(itemViewModel.Description)
+            && itemViewModel.Cost >= 0
+            && itemViewModel.Price >= 0);
+    }
+}
+

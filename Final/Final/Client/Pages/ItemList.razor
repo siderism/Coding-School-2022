@@ -1,0 +1,79 @@
+﻿@page "/itemlist"
+@using Final.Shared
+@using System.Net.Http.Json
+@using Final.Shared.ViewModels
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+<h3>Item List</h3>
+
+<button class="btn btn-primary" @onclick="AddNewItem">New Item</button>
+
+@if (isLoading)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Item Type</th>
+                <th>Price</th>
+                <th>Cost</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var itemViewModel in _itemListViewModel.ItemList)
+            {
+                <tr>
+                    <td>@itemViewModel.Code</td>
+                    <td>@itemViewModel.Description</td>
+                    <td>@itemViewModel.ItemType</td>
+                    <td>@itemViewModel.Price</td>
+                    <td>@itemViewModel.Cost</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => EditItem(itemViewModel)">Edit</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteItem(itemViewModel)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+	private ItemListViewModel _itemListViewModel = new();
+	private bool isLoading = true;
+
+	protected override async Task OnInitializedAsync()
+	{
+		await LoadItemsFromServer();
+		isLoading = false;
+	}
+
+	protected async Task AddNewItem()
+	{
+		navigationManager.NavigateTo("/itemlist/edit");
+	}
+
+	protected async Task EditItem(ItemViewModel itemViewModel)
+	{
+		navigationManager.NavigateTo($"/itemlist/edit/{itemViewModel.Id}");
+	}
+
+	protected async Task DeleteItem(ItemViewModel itemViewModel)
+    {
+        var response = await httpClient.DeleteAsync($"item/{itemViewModel.Id}");
+        response.EnsureSuccessStatusCode();
+        await LoadItemsFromServer();
+    }
+
+	private async Task LoadItemsFromServer()
+	{
+		_itemListViewModel.ItemList = await httpClient.GetFromJsonAsync<List<ItemViewModel>>("item");
+	}
+}

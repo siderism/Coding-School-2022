@@ -1,0 +1,99 @@
+﻿@page "/employeeList/Edit/{ID:int?}"
+@using Final.Shared
+@using Final.Shared.ViewModels
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+<h3>Employee Edit</h3>
+
+@if (employeeViewModel == null)
+{
+    <p>Loading ...</p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <input class="form-control" @bind="@employeeViewModel.Name"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Surname</label>
+            <input class="form-control" @bind="@employeeViewModel.Surname"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label mt-2">Employee Type</label>
+            <select class="form-select" @bind="@employeeViewModel.EmployeeType">
+                @foreach (var type in Enum.GetValues(typeof(Model.EmployeeType)))
+                {
+                    <option value="@type">@type</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Sallary Per Month</label>
+            <input type="number" class="form-control" @bind="@employeeViewModel.SallaryPerMonth"/>
+        </div>
+        <div class="col-md-6">
+            <label for="tr-date">Hire Date Start</label>
+            <input type="date" name="tr-date" class="form-control" min='2000-01-01' max='2099-12-31' @bind="@employeeViewModel.HireDateStart" />
+        </div>
+        <div class="col-md-6">
+            <label for="tr-date">Hire Date End</label>
+            <input type="date" name="tr-date" class="form-control" min='2000-01-01' max='2099-12-31' @bind="@employeeViewModel.HireDateEnd" />
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col">
+            <button class="btn btn-success" @onclick="OnSave">Save</button>
+            <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    EmployeeViewModel employeeViewModel { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        employeeViewModel = await httpClient.GetFromJsonAsync<EmployeeViewModel>($"employee/{(Id == null ? 0 : Id)}");
+        if (employeeViewModel != null)
+        {
+            employeeViewModel.HireDateStart = DateTime.Now;
+            employeeViewModel.HireDateEnd = DateTime.Now;
+        }
+        
+    }
+
+    protected async Task OnSave()
+    {
+        HttpResponseMessage response;
+        if(!HasValidData())
+            return;
+        if (Id == null)
+        {
+            response = await httpClient.PostAsJsonAsync("employee", employeeViewModel);
+        }
+        else
+        {
+            response = await httpClient.PutAsJsonAsync("employee", employeeViewModel);
+        }
+        response.EnsureSuccessStatusCode();
+        navigationManager.NavigateTo("employeelist");
+    }
+
+    protected void OnCancel()
+    {
+        navigationManager.NavigateTo("employeelist");
+    }
+
+    protected bool HasValidData()
+    {
+        return (!string.IsNullOrWhiteSpace(employeeViewModel.Name)
+            && !string.IsNullOrWhiteSpace(employeeViewModel.Surname)
+            && employeeViewModel.SallaryPerMonth >= 0
+            && employeeViewModel.HireDateStart <= employeeViewModel.HireDateEnd);
+    }
+}
