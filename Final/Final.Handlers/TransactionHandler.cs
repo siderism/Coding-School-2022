@@ -1,5 +1,6 @@
 ﻿using Final.EF.Context;
 using Final.Model;
+using Final.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,8 @@ namespace Final.Handlers
 {
     public class TransactionHandler
     {
-        private readonly FinalContext _context;
-
-        public TransactionHandler(FinalContext context)
+        public TransactionHandler()
         {
-            _context = context;
         }
 
         public decimal CalculateNetValue(int quantity, decimal price)
@@ -22,33 +20,36 @@ namespace Final.Handlers
             return quantity * price;
         }
 
-        public decimal CalculateDiscountValue(decimal netValue, decimal discountPercent)
-        {
-            return netValue * discountPercent;
-        }
-
         public decimal CalculateLineTotalValue(decimal discountValue, decimal netValue)
         {
             return netValue - discountValue;
         }
 
-        public decimal CalculateTransactionTotalValue(List<decimal> linesTotalValues)
+        public decimal CalculateTransactionTotalValue(List<TransactionLineEditViewModel> linesTotalValues)
         {
-            return linesTotalValues.Sum();
+            return linesTotalValues.Sum(x => x.TotalValue);
         }
 
-        public decimal ApplyTenPercentDiscount(decimal netValue, decimal totalValue)
+        public decimal ApplyTenPercentDiscount(decimal netValue)
         {
             if (netValue > 20)
             {
-                return totalValue - totalValue * 0.10m;
+                return netValue * 0.10m;
             }
-            return totalValue;
+            return 0m; ;
         }
 
-        public bool CheckFuelExist(List<TransactionLine> transactionLines)
+        public bool CheckFuelExist(List<TransactionLineEditViewModel> transactionLines, List<ItemViewModel> items)
         {
-            return transactionLines.Where(x => x.Item?.ItemType == ItemType.Fuel).Any();
+
+            foreach (var tl in transactionLines)
+            {
+                var currItem = items.FirstOrDefault(i => i.Id == tl.ItemId);
+                if (currItem is null) return false;
+                if (currItem.ItemType == ItemType.Fuel)
+                    return true;
+            }
+            return false;
         }
 
         public bool CheckCardPaymentAvail(decimal totalValue)

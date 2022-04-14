@@ -55,7 +55,7 @@ else
         navigationManager.NavigateTo("/customerlist/edit");
     }
 
-    protected async Task EditCustomer(CustomerViewModel customerViewModel)
+    protected async Task EditCustomer(CustomerEditViewModel customerViewModel)
     {
         var customerEditViewModel = new CustomerEditViewModel
             {
@@ -66,7 +66,7 @@ else
         navigationManager.NavigateTo($"/customerlist/edit/{customerEditViewModel.Id}");
 	}
 
-	protected async Task DeleteCustomer(CustomerViewModel customerViewModel)
+	protected async Task DeleteCustomer(CustomerEditViewModel customerViewModel)
     {
         var response = await httpClient.DeleteAsync($"customer/{customerViewModel.Id}");
         response.EnsureSuccessStatusCode();
@@ -75,6 +75,6 @@ else
 
 	private async Task LoadItemsFromServer()
 	{
-		_customerListViewModel.CustomerList = await httpClient.GetFromJsonAsync<List<CustomerViewModel>>("customer");
+		_customerListViewModel.CustomerList = await httpClient.GetFromJsonAsync<List<CustomerEditViewModel>>("customer");
 	}
 }

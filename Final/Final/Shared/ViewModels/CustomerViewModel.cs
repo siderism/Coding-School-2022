@@ -11,6 +11,7 @@ namespace Final.Shared.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
+        public string FullName { get { return $"{Name} {Surname}"; } }
         public string CardNumber { get; set; }
     }
 
@@ -19,10 +20,12 @@ namespace Final.Shared.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
+        public string FullName { get { return $"{Name} {Surname}"; } }
+        public string CardNumber { get; set; } = String.Empty;
     }
 
     public class CustomerListViewModel
     {
-        public List<CustomerViewModel> CustomerList { get; set; } = new List<CustomerViewModel>();
+        public List<CustomerEditViewModel> CustomerList { get; set; } = new List<CustomerEditViewModel>();
     }
 }

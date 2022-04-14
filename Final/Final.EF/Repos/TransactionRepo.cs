@@ -21,6 +21,7 @@ namespace Final.EF.Repos
         public async Task AddAsync(Transaction entity)
         {
             await AddLogic(entity);
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
@@ -46,8 +47,7 @@ namespace Final.EF.Repos
 
         private async Task AddLogic(Transaction entity)
         {
-            if (entity.Id == 0)
-                throw new ArgumentException("Given entity should not have Id set", nameof(entity));
+            entity.Date = DateTime.Now;
             await _context.Transactions.AddAsync(entity);
 
         }

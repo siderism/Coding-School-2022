@@ -18,6 +18,7 @@ builder.Services.AddScoped<IEntityRepo<Item>, ItemRepo>();
 builder.Services.AddScoped<IEntityRepo<Transaction>, TransactionRepo>();
 builder.Services.AddScoped<IEntityRepo<TransactionLine>, TransactionLineRepo>();
 builder.Services.AddScoped<LedgerHandler>();
+builder.Services.AddScoped<TransactionHandler>();
 
 var app = builder.Build();
 

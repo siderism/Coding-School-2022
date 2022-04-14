@@ -61,8 +61,13 @@ else
         employeeViewModel = await httpClient.GetFromJsonAsync<EmployeeViewModel>($"employee/{(Id == null ? 0 : Id)}");
         if (employeeViewModel != null)
         {
-            employeeViewModel.HireDateStart = DateTime.Now;
-            employeeViewModel.HireDateEnd = DateTime.Now;
+            if(employeeViewModel.HireDateStart < DateTime.Parse("2000-01-01")){
+                employeeViewModel.HireDateStart = DateTime.Now;
+            }
+            if(employeeViewModel.HireDateEnd < DateTime.Parse("2000-01-01"))
+            {
+                employeeViewModel.HireDateEnd = DateTime.Now;
+            }   
         }
         
     }

@@ -10,7 +10,7 @@ namespace Final.Shared.ViewModels
     public class ItemViewModel
     {
         public int Id { get; set; }
-        public string? Code { get; set; }
+        public string? Code { get; set; } = string.Empty;
         public string Description { get; set; }
         public ItemType ItemType { get; set; }
         public decimal Price { get; set; }

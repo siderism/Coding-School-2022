@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Final.EF\Final.EF.csproj" />
     <ProjectReference Include="..\Final.Model\Final.Model.csproj" />
+    <ProjectReference Include="..\Final\Shared\Final.Shared.csproj" />
   </ItemGroup>
 
 </Project>

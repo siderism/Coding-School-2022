@@ -17,62 +17,74 @@ namespace Final.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<TransactionViewModel>> Get()
+        public async Task<IEnumerable<TransactionListViewModel>> Get()
         {
             var result = await _transactionRepo.GetAllAsync();
-            return result.Select(x => new TransactionViewModel
+            return result.Select(x => new TransactionListViewModel
             {
                 Id = x.Id,
                 EmployeeFullName = x.Employee.FullName,
                 CustomerFullName = x.Customer.FullName,
                 PaymentMethod = x.PaymentMethod,
+                Date = x.Date,
                 TotalValue = x.TotalValue,
             });
         }
 
         [HttpGet("{id}")]
-        public async Task<TransactionViewModel?> Get(int id)
+        public async Task<TransactionEditViewModel?> Get(int id)
         {
-            TransactionViewModel model = new();
+            var getTransaction = new TransactionEditViewModel();
             if (id != 0)
             {
                 var existing = await _transactionRepo.GetByIdAsync(id);
-                if (existing is null)
-                    return null;
-                model.Id = existing.Id;
-                model.EmployeeFullName = existing.Employee.FullName;
-                model.CustomerFullName = existing.Customer.FullName;
-                model.PaymentMethod = existing.PaymentMethod;
-                model.TotalValue = existing.TotalValue;
+                if (existing == null) throw new ArgumentException($"Given id '{id}' was not found in database");
+
+                getTransaction.Id = existing.Id;
+                getTransaction.PaymentMethod = existing.PaymentMethod;
+                getTransaction.TotalValue = existing.TotalValue;
+                getTransaction.CustomerFullName = $"{existing.Customer.Name} {existing.Customer.Surname}";
+                getTransaction.EmployeeFullName = $"{existing.Employee.Name} {existing.Employee.Surname}";
+                getTransaction.CustomerId = existing.Customer.Id;
+                getTransaction.EmployeeId = existing.Employee.Id;
+                ConvertTransactionLineToViewModel(getTransaction, existing);
             }
-            return model;
+            return getTransaction;
         }
 
         [HttpPost]
-        public async Task Post(TransactionViewModel transactionViewModel)
+        public async Task Post(TransactionEditViewModel transactionViewModel)
         {
             var newTransaction = new Transaction()
             {
-                Date = DateTime.Now,
-                
+                CustomerId = transactionViewModel.CustomerId,
+                EmployeeId = transactionViewModel.EmployeeId,
+                PaymentMethod = transactionViewModel.PaymentMethod,
+                TotalValue = transactionViewModel.TotalValue,
+                TransactionLines = new()
             };
-            
+            newTransaction.Date = DateTime.Now;
+            ConvertViewModelLineToTransactionLine(transactionViewModel, newTransaction);
+
             await _transactionRepo.AddAsync(newTransaction);
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(TransactionViewModel transactionViewModel)
+        public async Task<ActionResult> Put(TransactionEditViewModel transactionViewModel)
         {
-            var itemToUpdate = await _transactionRepo.GetByIdAsync(transactionViewModel.Id);
-            if (itemToUpdate is null) return NotFound();
+            var transactionUpdate = await _transactionRepo.GetByIdAsync(transactionViewModel.Id);
+            if (transactionUpdate == null) return NotFound();
+            transactionUpdate.CustomerId = transactionViewModel.CustomerId;
+            transactionUpdate.EmployeeId = transactionViewModel.EmployeeId;
+            transactionUpdate.PaymentMethod = transactionViewModel.PaymentMethod;
+            transactionUpdate.TransactionLines = new();
+            ConvertViewModelLineToTransactionLine(transactionViewModel, transactionUpdate);
 
-            
-
-            await _transactionRepo.UpdateAsync(transactionViewModel.Id, itemToUpdate);
+            await _transactionRepo.UpdateAsync(transactionViewModel.Id, transactionUpdate);
             return Ok();
         }
 
-        [HttpDelete("{ID}")]
+        [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
             var selectedTransaction = await _transactionRepo.GetByIdAsync(id);
@@ -82,6 +94,43 @@ namespace Final.Server.Controllers
             }
 
             await _transactionRepo.DeleteAsync(id);
+        }
+
+        private void ConvertViewModelLineToTransactionLine(TransactionEditViewModel model, Transaction newTransaction)
+        {
+            foreach (var tl in model.TransactionLineList)
+            {
+                var helper = new TransactionLine()
+                {
+                    ItemId = tl.ItemId,
+                    ItemPrice = tl.ItemPrice,
+                    NetValue = tl.NetValue,
+                    DiscountPercent = tl.DiscountPercent,
+                    DiscountValue = tl.DiscountValue,
+                    TotalValue = tl.TotalValue,
+                    Quantity = tl.Quantity,
+                };
+                newTransaction.TransactionLines.Add(helper);
+            }
+        }
+
+        private void ConvertTransactionLineToViewModel(TransactionEditViewModel model, Transaction newTransaction)
+        {
+            foreach (var tl in newTransaction.TransactionLines)
+            {
+                var helper = new TransactionLineEditViewModel()
+                {
+                    ItemId = tl.ItemId,
+                    ItemPrice = tl.ItemPrice,
+                    NetValue = tl.NetValue,
+                    DiscountPercent = tl.DiscountPercent,
+                    DiscountValue = tl.DiscountValue,
+                    TotalValue = tl.TotalValue,
+                    Quantity = tl.Quantity,
+                    ItemDescription = tl.Item.Description
+                };
+                model.TransactionLineList.Add(helper);
+            }
         }
     }
 }

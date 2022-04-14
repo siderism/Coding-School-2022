@@ -17,10 +17,10 @@ namespace Final.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CustomerViewModel>> Get()
+        public async Task<IEnumerable<CustomerEditViewModel>> Get()
         {
             var result = await _customerRepo.GetAllAsync();
-            return result.Select(x => new CustomerViewModel
+            return result.Select(x => new CustomerEditViewModel
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -30,9 +30,9 @@ namespace Final.Server.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<CustomerViewModel?> Get(int id)
+        public async Task<CustomerEditViewModel?> Get(int id)
         {
-            CustomerViewModel model = new();
+            CustomerEditViewModel model = new();
             if (id != 0)
             {
                 var existing = await _customerRepo.GetByIdAsync(id);
@@ -54,18 +54,26 @@ namespace Final.Server.Controllers
                 Name = customerViewModel.Name,
                 Surname = customerViewModel.Surname,
             };
-            bool cardExist = true;
-            string cardNumber = string.Empty;
-            var customers = await _customerRepo.GetAllAsync();
-            while (cardExist)
+            if (customerViewModel.CardNumber != String.Empty)
             {
-                cardNumber = $"A{Guid.NewGuid().ToString("N").Substring(0, 9)}";
-                if(!customers.Where(customer => customer.CardNumber == cardNumber).Any())
-                {
-                    cardExist = false;
-                }
+                newCustomer.CardNumber = customerViewModel.CardNumber;
             }
-            newCustomer.CardNumber = cardNumber;
+            else
+            {
+                bool cardExist = true;
+                string cardNumber = string.Empty;
+                var customers = await _customerRepo.GetAllAsync();
+                while (cardExist)
+                {
+                    cardNumber = $"A{Guid.NewGuid().ToString("N").Substring(0, 9)}";
+                    if (!customers.Where(customer => customer.CardNumber == cardNumber).Any())
+                    {
+                        cardExist = false;
+                    }
+                }
+                newCustomer.CardNumber = cardNumber;
+            }
+            
             await _customerRepo.AddAsync(newCustomer);
         }
 

@@ -44,7 +44,6 @@ namespace Final.Handlers
                 expences += t.TransactionLines.Sum(tl => tl.Item.Cost * tl.Quantity);
             }
             return expences;
-            //return _context.Transactions.Where(transaction => transaction.Date.Year == ledger.Year && transaction.Date.Month == ledger.Month).Select(transaction => transaction.TransactionLines).Sum(transactionLine => transactionLine.Sum(transactionLine => transactionLine.Item.Cost * transactionLine.Quantity));
         }
 
         public decimal GetTotalExpences(Ledger ledger)
