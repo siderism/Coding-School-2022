@@ -18,6 +18,7 @@ namespace Final.Win
             _handler = new TransactionHandler();
             _httpClient = httpClient;
             _login = login;
+            HideButtons();
         }
 
         private void customersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -36,6 +37,22 @@ namespace Final.Win
         {
             var frmCustomerList = new TransactionsF(_httpClient, _handler);
             frmCustomerList.ShowDialog();
+        }
+
+        private void HideButtons()
+        {
+            if(_login.Role == EmployeeType.Cashier)
+            {
+                itemsToolStripMenuItem.Visible = false;
+                return;
+            }
+            if(_login.Role == EmployeeType.Staff)
+            {
+                customersToolStripMenuItem.Visible = false;
+                transactionsToolStripMenuItem.Visible = false;
+                return;
+            }
+
         }
     }
 }
