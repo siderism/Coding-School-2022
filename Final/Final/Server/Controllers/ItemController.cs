@@ -67,7 +67,7 @@ namespace Final.Server.Controllers
                 var items = await _itemRepo.GetAllAsync();
                 while (codeExist)
                 {
-                    code = $"A{Guid.NewGuid().ToString("N").Substring(0, 9)}";
+                    code = $"{Guid.NewGuid().ToString("N").Substring(0, 10)}";
                     if (!items.Where(item => item.Code == code).Any())
                     {
                         codeExist = false;

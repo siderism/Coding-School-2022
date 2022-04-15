@@ -13,6 +13,13 @@
 else
 {
     <div class="row">
+        <ShowErrorMessage ShowingErrorMessages=@ShowingErrorMessages/>
+        @if (ShowingErrorMessages)
+        {
+            <button class="btn btn-close" @onclick="@(e => ShowingErrorMessages = false )"></button>
+        }
+    </div>
+    <div class="row">
         <div class="col-md-6">
             <label class="form-label">Code</label>
             <input class="form-control" @bind="@itemViewModel.Code"/>
@@ -51,6 +58,7 @@ else
 @code {
     [Parameter] public int? Id { get; set; }
     ItemViewModel itemViewModel { get; set; }
+    private bool ShowingErrorMessages = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -60,8 +68,11 @@ else
     protected async Task OnSave()
     {
         HttpResponseMessage response;
-        if(!HasValidData())
+        if (!HasValidData())
+        {
+            ShowingErrorMessages = true;
             return;
+        }
 
         if (itemViewModel.Code is null)
                 itemViewModel.Code = String.Empty;

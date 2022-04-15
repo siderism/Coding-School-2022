@@ -6,9 +6,18 @@
 <h3>Ledger</h3>
 
 <div class="row">
+    <ShowErrorMessage ShowingErrorMessages=@ShowingErrorMessages/>
+    @if (ShowingErrorMessages)
+    {
+        <button class="btn btn-close" @onclick="@(e => ShowingErrorMessages = false )"></button>
+    }
+</div>
+
+
+<div class="row">
     <div class="col-md-4">
         <label class="form-label">Year</label>
-        <input class="form-control" type="number" pattern="\d*" min="2000" max="2099" step="1" @bind="@_year"/>
+        <input class="form-control" type="number" pattern="\d{4}?" min="2000" max="2099" step="1" @bind="@_year"/>
     </div>
     <div class="col-md-4">
             <label class="form-label">Month</label>
@@ -70,11 +79,16 @@
     private int _year = 2022;
     private int _month = -1;
     private decimal _rent = 5000m;
+    private bool ShowingErrorMessages = false;
 
     protected async Task Calculate()
     {
-        if(!HasValidData())
+        if (!HasValidData())
+        {
+            ShowingErrorMessages = true;
             return;
+        }
+        
         _ledger = await httpClient.GetFromJsonAsync<LedgerViewModel>($"ledger/{_year}/{_month}/{_rent}");
         if (_ledger is null)
             return;
@@ -83,6 +97,6 @@
 
     protected bool HasValidData()
     {
-        return (_month > 0 && _month < 13) && _rent >= 0;
+        return (_month > 0 && _month < 13) && _rent >= 0 && (_year >= 2000 && _year < 2100);
     }
 }

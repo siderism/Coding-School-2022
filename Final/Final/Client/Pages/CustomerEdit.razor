@@ -12,6 +12,13 @@
 }
 else
 {
+    <div claas="row">
+        <ShowErrorMessage ShowingErrorMessages=@ShowingErrorMessages/>
+        @if (ShowingErrorMessages)
+        {
+            <button class="btn btn-close" @onclick="@(e => ShowingErrorMessages = false )"></button>
+        }
+    </div>
     <div class="row">
         <div class="col-md-4">
             <label class="form-label">Name</label>
@@ -34,6 +41,7 @@ else
 @code {
     [Parameter] public int? Id { get; set; }
     CustomerEditViewModel customerEditViewModel { get; set; }
+    private bool ShowingErrorMessages = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -42,9 +50,13 @@ else
 
     protected async Task OnSave()
     {
+        
         HttpResponseMessage response;
-        if(!HasValidData())
+        if(!HasValidData()){
+            ShowingErrorMessages = true;
             return;
+        }
+            
         if (Id == null)
         {
             response = await httpClient.PostAsJsonAsync("customer", customerEditViewModel);

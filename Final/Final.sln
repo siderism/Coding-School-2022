@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Final.EF", "Final.EF\Final.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Final.Handlers", "Final.Handlers\Final.Handlers.csproj", "{8AA90ACE-E0D0-4DC3-888C-0D008752E350}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Final.Win", "Final.Win\Final.Win.csproj", "{9CF8212D-C215-4589-A503-C98520DF9051}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Final.Win", "Final.Win\Final.Win.csproj", "{9CF8212D-C215-4589-A503-C98520DF9051}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
