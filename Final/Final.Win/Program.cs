@@ -20,7 +20,7 @@ namespace Final.Win
             services.AddScoped<TransactionHandler>();
             
 
-            Application.Run(new HomeF());
+            Application.Run(new Login());
         }
     }
 }

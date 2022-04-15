@@ -2,6 +2,7 @@ using Final.EF.Context;
 using Final.EF.Repos;
 using Final.Handlers;
 using Final.Model;
+using Final.Shared.ViewModels;
 
 namespace Final.Win
 {
@@ -9,13 +10,14 @@ namespace Final.Win
     {
         private HttpClient _httpClient;
         private TransactionHandler _handler;
+        private LoginViewModel _login;
 
-        public HomeF()
+        public HomeF(HttpClient httpClient, LoginViewModel login)
         {
             InitializeComponent();
             _handler = new TransactionHandler();
-            _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri("https://localhost:7126/");
+            _httpClient = httpClient;
+            _login = login;
         }
 
         private void customersToolStripMenuItem_Click(object sender, EventArgs e)
