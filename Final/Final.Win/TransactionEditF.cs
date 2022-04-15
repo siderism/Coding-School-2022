@@ -59,17 +59,6 @@ namespace Final.Win
             RefreshGridViewTransactionList();
         }
 
-        private async void btnEdit_Click(object sender, EventArgs e)
-        {
-            if (grvTransaction.SelectedRows.Count != 1)
-                return;
-
-            //var tmpTransactionLine = (TransactionLineEdViewModel)grvTransactionLine.SelectedRows[index: 0].DataBoundItem;
-            //var transacationLineF = new TransactionLineF(_client, _selectedTransactionLine);
-            //transacationLineF.ShowDialog();
-            RefreshGridViewTransactionList();
-        }
-
         private async void btnDelete_Click(object sender, EventArgs e)
         {
             if (grvTransaction.SelectedRows.Count != 1)

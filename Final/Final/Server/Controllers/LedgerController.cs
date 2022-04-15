@@ -17,7 +17,7 @@ namespace Final.Server.Controllers
         }
 
         [HttpGet("{year}/{month}/{rent}")]
-        public LedgerViewModel Get(int year, int month, decimal rent)
+        public async Task<LedgerViewModel> Get(int year, int month, decimal rent)
         {
             var ledgerViewModel = new LedgerViewModel()
             {
@@ -30,9 +30,9 @@ namespace Final.Server.Controllers
                 Month = month
             };
             _handler.SetRentCost(rent);
-            ledgerViewModel.Income = _handler.GetIncome(ledger);
-            ledgerViewModel.Expenses = _handler.GetTotalExpences(ledger);
-            ledgerViewModel.Total = _handler.GetTotal(ledger);
+            ledgerViewModel.Income = await _handler.GetIncome(ledger);
+            ledgerViewModel.Expenses = await _handler.GetTotalExpences(ledger);
+            ledgerViewModel.Total = await _handler.GetTotal(ledger);
             return ledgerViewModel;
         }
     }

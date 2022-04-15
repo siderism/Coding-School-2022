@@ -1,4 +1,5 @@
 ﻿using Final.EF.Context;
+using Final.EF.Repos;
 using Final.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,15 +14,18 @@ namespace Final.Handlers
     {
         private decimal _rentCost = 5000.0m;
         private readonly FinalContext _context;
+        private readonly IEntityRepo<Transaction> _transactionRepo;
 
-        public LedgerHandler(FinalContext context)
+        public LedgerHandler(FinalContext context, IEntityRepo<Transaction> transactionRepo)
         {
             _context = context;
+            _transactionRepo = transactionRepo;
         }
 
-        public decimal GetIncome(Ledger ledger)
+        public async Task<decimal> GetIncome(Ledger ledger)
         {
-            return _context.Transactions.Where(transaction => transaction.Date.Year == ledger.Year && transaction.Date.Month == ledger.Month).Sum(transaction => transaction.TotalValue);
+            var transactions = await _transactionRepo.GetAllAsync();
+            return transactions.Where(transaction => transaction.Date.Year == ledger.Year && transaction.Date.Month == ledger.Month).Sum(transaction => transaction.TotalValue);
         }
 
         private decimal GetStuffExpences(Ledger ledger)
@@ -35,9 +39,10 @@ namespace Final.Handlers
             return expences;
         }
 
-        private decimal GetItemExpences(Ledger ledger)
+        private async Task<decimal> GetItemExpences(Ledger ledger)
         {
-            var monthlyTrans = _context.Transactions.Where(transaction => transaction.Date.Year == ledger.Year && transaction.Date.Month == ledger.Month);
+            var transaction = await _transactionRepo.GetAllAsync();
+            var monthlyTrans = transaction.Where(transaction => transaction.Date.Year == ledger.Year && transaction.Date.Month == ledger.Month);
             var expences = 0m;
             foreach(var t in monthlyTrans)
             {
@@ -46,14 +51,17 @@ namespace Final.Handlers
             return expences;
         }
 
-        public decimal GetTotalExpences(Ledger ledger)
+        public async Task<decimal> GetTotalExpences(Ledger ledger)
         {
-            return GetStuffExpences(ledger) + GetItemExpences(ledger) + _rentCost;
+            var itemExpences = await GetItemExpences(ledger);
+            return GetStuffExpences(ledger) + itemExpences + _rentCost;
         }
 
-        public decimal GetTotal(Ledger ledger)
+        public async Task<decimal> GetTotal(Ledger ledger)
         {
-            return GetIncome(ledger) - GetTotalExpences(ledger);
+            var income = await GetIncome(ledger);
+            var expences = await GetTotalExpences(ledger);
+            return income - expences;
         }
 
         private int CalculateWorkingDays(Ledger ledger, Employee employee)
