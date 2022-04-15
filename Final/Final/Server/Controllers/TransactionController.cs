@@ -47,6 +47,7 @@ namespace Final.Server.Controllers
                 getTransaction.EmployeeFullName = $"{existing.Employee.Name} {existing.Employee.Surname}";
                 getTransaction.CustomerId = existing.Customer.Id;
                 getTransaction.EmployeeId = existing.Employee.Id;
+                getTransaction.TransactionLineList = new();
                 ConvertTransactionLineToViewModel(getTransaction, existing);
             }
             return getTransaction;

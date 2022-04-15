@@ -48,10 +48,8 @@ namespace Final.Win
             bsTransactionLine.DataSource = _transaction.TransactionLineList;
 
             SetReadOnlyFields();
-
-            RefreshGridViewTransactionList();
-
             SetDataBindings();
+            RefreshGridViewTransactionList();
         }
 
         private async void btnAdd_Click(object sender, EventArgs e)
@@ -66,7 +64,7 @@ namespace Final.Win
             if (grvTransaction.SelectedRows.Count != 1)
                 return;
 
-            // var tmpTransactionLine = (TransactionLineEdViewModel)grvTransactionLine.SelectedRows[index: 0].DataBoundItem;
+            //var tmpTransactionLine = (TransactionLineEdViewModel)grvTransactionLine.SelectedRows[index: 0].DataBoundItem;
             //var transacationLineF = new TransactionLineF(_client, _selectedTransactionLine);
             //transacationLineF.ShowDialog();
             RefreshGridViewTransactionList();

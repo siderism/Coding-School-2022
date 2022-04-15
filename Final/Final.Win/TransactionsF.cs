@@ -54,7 +54,8 @@ namespace Final.Win
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-
+            var tmpTransaction = (TransactionListViewModel)grvTransactions.SelectedRows[index: 0].DataBoundItem;
+            _client.DeleteAsync($"transaction/{tmpTransaction.Id}");
         }
 
         private async void btnRefresh_Click(object sender, EventArgs e)

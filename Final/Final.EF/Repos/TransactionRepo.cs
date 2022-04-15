@@ -32,12 +32,12 @@ namespace Final.EF.Repos
 
         public async Task<List<Transaction>> GetAllAsync()
         {
-            return await _context.Transactions.Include(transaction => transaction.Employee).Include(transaction => transaction.Customer).ToListAsync();
+            return await _context.Transactions.Include(transaction => transaction.Employee).Include(transaction => transaction.Customer).Include(transaction => transaction.TransactionLines).ThenInclude(tl => tl.Item).ToListAsync();
         }
 
         public async Task<Transaction?> GetByIdAsync(int id)
         {
-            return await _context.Transactions.Include(transaction => transaction.Employee).Include(transaction => transaction.Customer).Include(transaction => transaction.TransactionLines).SingleOrDefaultAsync(transaction => transaction.Id == id);
+            return await _context.Transactions.Include(transaction => transaction.Employee).Include(transaction => transaction.Customer).Include(transaction => transaction.TransactionLines).ThenInclude(tl => tl.Item).SingleOrDefaultAsync(transaction => transaction.Id == id);
         }
 
         public async Task UpdateAsync(int id, Transaction entity)

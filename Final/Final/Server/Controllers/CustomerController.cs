@@ -65,7 +65,7 @@ namespace Final.Server.Controllers
                 var customers = await _customerRepo.GetAllAsync();
                 while (cardExist)
                 {
-                    cardNumber = $"A{Guid.NewGuid().ToString("N").Substring(0, 9)}";
+                    cardNumber = $"A{Guid.NewGuid().ToString("N").Substring(0, 7)}";
                     if (!customers.Where(customer => customer.CardNumber == cardNumber).Any())
                     {
                         cardExist = false;
