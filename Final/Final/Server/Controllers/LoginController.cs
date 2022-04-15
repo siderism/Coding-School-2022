@@ -17,7 +17,7 @@ namespace Final.Server.Controllers
         }
 
         [HttpGet("{username}/{password}")]
-        public async Task<LoginViewModel> Get(int id, string username, string password)
+        public async Task<LoginViewModel> Get(string username, string password)
         {
             LoginViewModel user = new();
             var found = await _context.Users.FirstOrDefaultAsync(user => user.Username == username && user.Password == password);
