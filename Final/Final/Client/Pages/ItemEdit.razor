@@ -97,6 +97,8 @@ else
     protected bool HasValidData()
     {
         return (!string.IsNullOrWhiteSpace(itemViewModel.Description)
+            && itemViewModel.Code.Length <= 10
+            && itemViewModel.Description.Length <= 30
             && itemViewModel.Cost >= 0
             && itemViewModel.Price >= 0);
     }

@@ -120,6 +120,7 @@
             // textBoxDescription
             // 
             this.textBoxDescription.Location = new System.Drawing.Point(123, 18);
+            this.textBoxDescription.MaxLength = 30;
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.Size = new System.Drawing.Size(100, 23);
             this.textBoxDescription.TabIndex = 8;
