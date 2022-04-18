@@ -66,6 +66,7 @@ namespace Final.Win
 
             _selectedTransactionLine = (TransactionLineEditViewModel)grvTransaction.SelectedRows[index: 0].DataBoundItem;
             _transaction.TransactionLineList.Remove(_selectedTransactionLine);
+            _transaction.TotalValue = _handler.CalculateTransactionTotalValue(_transaction.TransactionLineList);
             RefreshGridViewTransactionList();
         }
 
@@ -108,8 +109,6 @@ namespace Final.Win
             txtCustomer.DataBindings.Add(new Binding("Text", bsTransaction, "CustomerFullName", true));
             numTotalValue.DataBindings.Add(new Binding("Text", bsTransaction, "TotalValue", true));
 
-
-            //TODO elen3e an ta bindings einai swsta
             RefreshEmployeeList();
             comboBoxEmployee.DataBindings.Add(new Binding("Text", bsTransaction, "EmployeeFullName", true));
 
